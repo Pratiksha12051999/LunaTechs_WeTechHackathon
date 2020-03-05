@@ -1,0 +1,53 @@
+install.packages("NbClust")
+install.packages("tidyverse")
+install.packages("factoextra")
+install.packages("ggmap")
+install.packages("kableExtra")
+library(ggmap)
+library(ggplot2)
+library(tidyverse)
+library(dplyr)
+library(NbClust)
+library(factoextra)
+library(readxl)
+library(kableExtra)
+#Load dataset
+testData6<-read_xlsx("C:/Users/Admin/Downloads/crime.xlsx")
+df<-head(testData6)
+set.seed(20)
+Test1<-scale(na.omit(data.matrix(testData6)[-1]))
+kable(df)
+x_latex <- knitr::kable(head(testData6), "latex")
+kable_styling(x_latex,bootstrap_options = "striped", font_size= 10, full_width = F)
+wssplot <- function(Test1, nc=20, seed=123){
+  wss <- (nrow(Test1)-1)*sum(apply(Test1,2,var))
+  for (i in 2:nc){
+    set.seed(seed)
+    wss[i] <- sum(kmeans(Test1, centers=i)$withinss)}
+  plot(1:nc, wss, type="b", xlab="Number of Clusters",
+       ylab="Within groups sum of squares")}
+#Original Within Sum Squares plot
+wssplot(Test1, nc=20)
+install.packages("esquisse")
+install.packages("ggthemes")
+library("esquisse")
+library("datasets")
+library("ggthemes")
+head(testData6)
+testData6$Lat<-as.factor(testData6$Lat)
+testData64Long<-as.factor(testData6$Long)
+esquisser()
+
+library(ggplot2)
+
+ggplot(testData6) +
+ aes(x = OFFENSE_CODE_GROUP, fill = DISTRICT) +
+ geom_bar() +
+ scale_fill_hue() +
+ coord_flip() +
+ theme_linedraw()
+library(ggplot2)
+ggplot(testData6) +
+ aes(x = DISTRICT, y = OFFENSE_CODE_GROUP) +
+ geom_tile(size = 1L) +
+ ggthemes::theme_solaried()
