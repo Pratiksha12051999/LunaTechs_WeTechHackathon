@@ -1,4 +1,4 @@
-# LunaTechs - BVPIEEE Project
+# LunaTechs - WeTech Hackathon by VESIT 
 
 Detecting and Analysing Crime Hotspots using KMeans Clustering Algorithm in Python 
 
